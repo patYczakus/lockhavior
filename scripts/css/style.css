@@ -1,0 +1,27 @@
+:root {
+    --backgroundColor-l-r1: rgb(1, 138, 206); --backgroundColor-d-r1: rgb(22, 93, 129);
+    --backgroundColor-l-r2: rgb(215, 215, 215); --backgroundColor-d-r2: rgb(50, 50, 50);
+    --backgroundColor-l-b1: rgb(215, 215, 215); --backgroundColor-d-b1: rgb(50, 50, 50);
+    --textColor-l-b1: rgb(37, 37, 37); --textColor-d-b1: rgb(200, 200, 200);
+}
+
+body {
+    background: var(--backgroundColor-l-r2);
+    padding: 15px;
+}
+
+body.dark {
+    background: var(--backgroundColor-d-r2);
+}
+
+input, button {
+    padding: 4px;
+    margin: 2px;
+    background: var(--backgroundColor-l-b1);
+    color: var(--textColor-l-b1);
+}
+
+.dark input, .dark button {
+    background: var(--backgroundColor-d-b1);
+    color: var(--textColor-d-b1);
+}
