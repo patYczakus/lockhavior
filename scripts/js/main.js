@@ -4,7 +4,12 @@ var body = document.body
 let auth = getAuth()
 
 window.onload = () => {
-    body.innerHTML = `<input id="email" type="email" placeholder="email" /><input id="haslo" type="password" placeholder="hasło" /><br />
+    // Tworzenie zawartości nagłówka
+    body.innerHTML = `<div id="header"><div style="display: inline-block; float: left;">C0nn3cted!</div><div style="float: left;">⭐</div></div>
+    `
+
+    // Tworzenie formularza logowania oraz rejestru
+    body.innerHTML += `<input id="email" type="email" placeholder="email" /><input id="haslo" type="password" placeholder="hasło" /><br />
     <button id="submit">Potwierdź</button>`
 
     document.getElementById("submit").addEventListener("click", () => {

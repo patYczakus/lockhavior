@@ -7,11 +7,19 @@
 
 body {
     background: var(--backgroundColor-l-r2);
-    padding: 15px;
+    margin: 15px;
 }
 
 body.dark {
     background: var(--backgroundColor-d-r2);
+}
+
+#header {
+    background-color: var(--backgroundColor-l-r1);
+    box-sizing: border-box;
+    margin: -10px;
+    width: 100vw;
+    height: 50px;
 }
 
 input, button {
