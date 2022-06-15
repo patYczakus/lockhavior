@@ -1,35 +1,73 @@
 :root {
-    --backgroundColor-l-r1: rgb(1, 138, 206); --backgroundColor-d-r1: rgb(22, 93, 129);
-    --backgroundColor-l-r2: rgb(215, 215, 215); --backgroundColor-d-r2: rgb(50, 50, 50);
-    --backgroundColor-l-b1: rgb(215, 215, 215); --backgroundColor-d-b1: rgb(50, 50, 50);
-    --textColor-l-b1: rgb(37, 37, 37); --textColor-d-b1: rgb(200, 200, 200);
+    --backgroundColor-r1: rgb(1, 138, 206);
+    --backgroundColor-r2: rgb(215, 215, 215);
+    --backgroundColor-r3: rgb(255, 255, 255);
+    --textColor-b1: rgb(37, 37, 37);
+    --textColor-b2: rgb(37 37 37 / 30%);
+    --textColor-err: rgb(235, 40, 40);
+}
+
+code {
+    display: inline-block;
 }
 
 body {
-    background: var(--backgroundColor-l-r2);
+    background-color: var(--backgroundColor-r2);
     margin: 15px;
 }
 
-body.dark {
-    background: var(--backgroundColor-d-r2);
+body {
+    background-color: var(--backgroundColor-r2);
 }
 
 #header {
-    background-color: var(--backgroundColor-l-r1);
+    background-color: transparent;
+    color: var(--textColor-b2);
     box-sizing: border-box;
-    margin: -10px;
+    font-size: 40px;
+    font-weight: 800;
+    padding: 10px;
+    margin: -15px;
+    margin-bottom: 15px;
     width: 100vw;
     height: 50px;
+    font-family: monospace;
 }
 
 input, button {
+    border: 2px solid black;
+    border-radius: 0.4rem;
     padding: 4px;
     margin: 2px;
-    background: var(--backgroundColor-l-b1);
-    color: var(--textColor-l-b1);
+    background-color: transparent;
+    color: black;
 }
 
-.dark input, .dark button {
-    background: var(--backgroundColor-d-b1);
-    color: var(--textColor-d-b1);
+input:focus {
+    outline-width: 0;
+}
+
+.forms {
+    background-color: var(--backgroundColor-r3);
+    display: inline-block;
+    width: 75%;
+    margin-left: 12.5%;
+}
+
+.forms .form {
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    width: 50%;
+    float: left;
+}
+
+.forms .form h2 {
+    display: block;
+    width: 100%;
+}
+
+.forms .form input, .forms .form button {
+    width: auto;
+    height: auto;
 }
