@@ -21,7 +21,7 @@ window.onload = () => {
             <div class="error"></div>
         </div>
         <div class="form register">
-            <h2>Rejestrowanie</h2>
+            <h2>Rejestracja</h2>
             Jesteś nowy? Ten formularz pozwoli Ci utworzyć konto do portalu!
             <br /><br /><br />
             <input id="reg-email" type="email" placeholder="Email" /><br />
