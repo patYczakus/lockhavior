@@ -34,11 +34,25 @@ window.onload = () => {
     `
 
     document.getElementById("submit-login").addEventListener("click", () => {
-        if (!document.getElementById("email").value || !document.getElementById("haslo").value) return alert("Brak emaila/hasła!")
+        if (!document.getElementById("log-email").value || !document.getElementById("log-haslo").value) return alert("Brak emaila/hasła!")
 
-        signInWithEmailAndPassword(auth, document.getElementById("email").value, document.getElementById("haslo").value)
+        signInWithEmailAndPassword(auth, document.getElementById("log-email").value, document.getElementById("log-haslo").value)
             .then((response) => {
-                console.log(response.user)
+                let login = response.user
+                console.log(login.uid)
+            })
+            .catch((err) => {
+                alert(err.message)
+            })
+    })
+
+    document.getElementById("submit-register").addEventListener("click", () => {
+        if (!document.getElementById("reg-email").value || !document.getElementById("reg-haslo1").value || !document.getElementById("reg-haslo1").value) return alert("Brak emaila/hasła!")
+
+        signInWithEmailAndPassword(auth, document.getElementById("log-email").value, document.getElementById("log-haslo").value)
+            .then((response) => {
+                let login = response.user
+                console.log(login.uid)
             })
             .catch((err) => {
                 alert(err.message)

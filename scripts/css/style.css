@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=Anek+Latin:wght@300&display=swap');
+
 :root {
     --backgroundColor-r1: rgb(1, 138, 206);
     --backgroundColor-r2: rgb(215, 215, 215);
@@ -52,12 +54,12 @@ input:focus {
     display: inline-block;
     width: 75%;
     margin-left: 12.5%;
+    font-family: "Anek Latin", Roboto, sans-serif;
 }
 
 .forms .form {
-    display: flex;
-    justify-content: center;
-    flex-direction: column;
+    box-sizing: border-box;
+    padding: 14px;
     width: 50%;
     float: left;
 }
@@ -68,6 +70,11 @@ input:focus {
 }
 
 .forms .form input, .forms .form button {
-    width: auto;
-    height: auto;
+    font-family: "Anek Latin", Roboto, sans-serif;
+    width: 100%;
+    font-size: 15px;
+}
+
+.forms .form input {
+    width: calc(100% - 11.97px);
 }
