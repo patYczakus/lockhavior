@@ -8,7 +8,7 @@
 }
 
 
-button {
+button, input[type="button"], #btn {
     margin-right: 5px;
     font-size: 17px;
     padding: 15px 20px;
@@ -16,14 +16,41 @@ button {
     background: #d4d4d4;
     border-radius: 0.7rem;
     cursor: pointer;
+    -webkit-tap-highlight-color: rgba(137, 43, 226, 0.3);
+    display: inline-block;
 }
-#sendBtn {
+
+button.small, input[type="button"].small {
+    padding: 3px;
+}
+
+textarea {
+    margin-right: 5px;
+    font-size: 15px;
+    border: none;
+    background: #d4d4d4;
+    border-radius: 0.7rem;
+    cursor: pointer;
+}
+
+textarea#send {
+    box-sizing: border-box;
+    width: calc(100% - 100px - 8px);
+    height: 35px;
+    padding: 4px;
+}
+
+#sendBtn, #addYtVideo {
     margin-right: 0;
     margin-left: 15px;
     position: absolute;
     width: 35px;
     height: 35px;
     padding: 3px;
+}
+
+#addYtVideo {
+    margin-left: 65px;
 }
 
 
@@ -33,6 +60,10 @@ span[type="link"] {
     font-size: 17px;
     padding: 4px;
     border-radius: 0.4rem;
+}
+
+span[type="link"]:focus-visible {
+    background-color: rgba(137, 43, 226, 0.3);
 }
 
 
@@ -47,9 +78,6 @@ span[type="link"] {
 .boxA.send {
     opacity: 0.4;
 }
-.boxA.send * {
-    opacity: 0.4;
-}
 .boxA {
     border-left: 7px solid black;
     min-height: 45px;
@@ -58,14 +86,14 @@ span[type="link"] {
     display: inline-block;
 }
 .user {
-    height: 25px;
+    height: 30px;
     font-size: 22px;
     font-weight: 600;
     padding-left: 5px;
 }
 .text {
     min-height: 15px;
-    font-size: 13px;
+    font-size: 15px;
     padding-left: 5px;
     font-weight: 550;
 }
