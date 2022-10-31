@@ -1,17 +1,28 @@
 import { app } from "./database.js"
-import { getDatabase, ref, set, onValue, push, child } from "https://www.gstatic.com/firebasejs/9.12.1/firebase-database.js"
+import { getDatabase, ref, set, onValue } from "https://www.gstatic.com/firebasejs/9.12.1/firebase-database.js"
 import { GoogleAuthProvider, FacebookAuthProvider, signInWithPopup, getAuth } from "https://www.gstatic.com/firebasejs/9.12.1/firebase-auth.js"
 
 var img, color, name, uid
-var ytLink = "none"
-var ytLinkNormal = null
-let arrayNumber = 0
 
-function writeUserData(text = String(), yt_link) {
+function writeUserData(text = String()) {
     const db = getDatabase()
-
+    var yt_link = document.getElementById("yt-link-input").value
     var info
-    if (yt_link != "none" && yt_link != null) {
+
+    if (yt_link != "" && (yt_link.startsWith("https://youtu.be/") || yt_link.startsWith("https://www.youtube.com/watch?v="))) {
+        yt_link = yt_link.replace("https://youtu.be/", "").replace("https://www.youtube.com/watch?v=", "")
+        if (yt_link.indexOf("t=") > -1) {
+            yt_link = yt_link.split("t=")
+            yt_link = {
+                code: yt_link[0],
+                timer: yt_link[1].slice(1)
+            }
+        } else {
+            yt_link = {
+                code: yt_link
+            }
+        }
+
         info = {
             username: name,
             profile_picture : img,
@@ -20,10 +31,6 @@ function writeUserData(text = String(), yt_link) {
             user_id: uid,
             youtube_video_link: yt_link
         }
-
-        ytLink = "none"
-        ytLinkNormal = null
-        document.querySelector("button#addYtVideo").style.background = "#d4d4d4"
     } else {
         info = {
             username: name,
@@ -33,6 +40,8 @@ function writeUserData(text = String(), yt_link) {
             user_id: uid 
         }
     }
+
+    document.getElementById("yt-link-input").value = ""
 
     set(ref(db, 'lastmessage/'), info)
 }
@@ -59,7 +68,8 @@ window.onload = () => {
 }
 
 function start() {
-    document.body.innerHTML = `<div id="chat"></div>
+    document.body.innerHTML = `<input id="yt-link-input" type="text" placeholder="Wpisz/skopiuj link. Wyczyść, aby usunąć link"/>
+    <div id="chat"></div>
     <div>
         <textarea id="send" placeholder="Aa"></textarea>
         <button id="sendBtn"><img alt="Wyślij" src="src/svg-s/send.svg" style="margin-top: 4.3px" /></button>
@@ -78,44 +88,16 @@ function start() {
 
     document.querySelector("button#sendBtn").addEventListener("click", () => {
         if (!document.querySelector("textarea#send").value.trim().length) return;
-        writeUserData(document.querySelector("textarea#send").value, ytLink)
+        writeUserData(document.querySelector("textarea#send").value)
         document.querySelector("textarea#send").value = ""
     })
     document.querySelector("button#addYtVideo").addEventListener("click", () => {
-        ytLink = prompt(`Podaj link do wideo${ytLinkNormal != null ? "\nWyczyść, aby usunąć link": ""}`, ytLinkNormal != null ? ytLinkNormal : "")
-        if (ytLink == null || ytLink == "") { 
-            ytLink == "none" 
-            ytLinkNormal = null
-            document.querySelector("button#addYtVideo").style.background = "#d4d4d4"
-        }
-        else if (ytLink.startsWith("https://youtu.be/") || ytLink.startsWith("https://www.youtube.com/watch")) {
-            ytLinkNormal = ytLink
-            ytLink = ytLink.replace("https://www.youtube.com/watch", "").replace("https://youtu.be/", "")
-            if (ytLink.indexOf("?t=") > -1) { 
-                ytLink = ytLink.split("?t=") 
-                ytLink = {
-                    code: ytLink[0],
-                    timer: ytLink[1]
-                }
-            } else {
-                ytLink = {
-                    code: ytLink
-                }
-            }
-
-            document.querySelector("button#addYtVideo").style.background = "#1bff00"
-        }
-        else {
-            alert("Zły link!")
-            ytLink = "none" 
-            ytLinkNormal = null
-            document.querySelector("button#addYtVideo").style.background = "#d4d4d4"
-        }
+        document.getElementById("yt-link-input").classList.toggle("active")
     })
     document.querySelector("textarea#send").addEventListener("keydown", (btn) => { 
         if (btn.ctrlKey && btn.code == "Enter") {
             if (!document.querySelector("textarea#send").value.trim().length) return;
-            writeUserData(document.querySelector("textarea#send").value, ytLink)
+            writeUserData(document.querySelector("textarea#send").value)
             setTimeout(document.querySelector("textarea#send").value = "", 1000)
         }
     })
@@ -125,8 +107,6 @@ function start() {
     
     onValue(msg, (snapshot) => {
         var data = snapshot.val();
-
-        
 
         let text = ""    
         var args = ""

@@ -5,6 +5,8 @@
 
 #chat {
     height: calc(100vh - 200px);
+    overflow-x: hidden;
+    overflow-y: auto;
 }
 
 
@@ -24,7 +26,13 @@ button.small, input[type="button"].small {
     padding: 3px;
 }
 
-textarea {
+div#btn button {
+    border: 2px solid #4d4d4d;
+    width: 37px;
+    height: 37px;
+}
+
+textarea, input[type="text"] {
     margin-right: 5px;
     font-size: 15px;
     border: none;
@@ -43,7 +51,7 @@ textarea#send {
 #sendBtn, #addYtVideo {
     margin-right: 0;
     margin-left: 15px;
-    position: absolute;
+    position: fixed;
     width: 35px;
     height: 35px;
     padding: 3px;
@@ -109,4 +117,18 @@ div.image {
     width: 45px;
     height: 45px;
     float: left;
+}
+
+#yt-link-input {
+    width: 50vw;
+    position: absolute;
+    top: calc(100vh - 216px);
+    padding-left: 7px;
+    height: 20px;
+    left: calc(50vw - 19px);
+    display: none;
+}
+
+#yt-link-input.active {
+    display: block;
 }
