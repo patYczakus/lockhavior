@@ -72,12 +72,13 @@ window.onload = () => {
         signInWithPopup(auth, provider)
             .then((result) => {
                 const user = result.user;
-                const credential = FacebookAuthProvider.credentialFromResult(result);
-                const accessToken = credential.accessToken;
                 
                 console.log(user)
-                console.log(accessToken)
-                console.log(credential)
+                img = user.photoURL
+                color = "#1877f2"
+                name = user.displayName
+                uid = user.uid
+                start()
             }).catch((error) => {         
                 console.error(error)
             });
