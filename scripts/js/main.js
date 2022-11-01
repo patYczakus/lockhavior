@@ -65,6 +65,19 @@ window.onload = () => {
                 console.error(error)
             });
     })
+    document.querySelector("button#fb").addEventListener("click", () => {
+        const provider = new FacebookAuthProvider();
+        const auth = getAuth(app);
+        
+        signInWithPopup(auth, provider)
+            .then((result) => {
+                const user = result.user;
+                console.log(user)
+
+            }).catch((error) => {         
+                console.error(error)
+            });
+    })
 }
 
 function start() {
