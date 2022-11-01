@@ -90,17 +90,17 @@ function start() {
     <div id="chat"></div>
     <div>
         <textarea id="send" placeholder="Aa"></textarea>
-        <button id="sendBtn"><img alt="Wyślij" src="src/svg-s/send.svg" style="margin-top: 4.3px" /></button>
-        <button id="addYtVideo"><img alt="Link do YT" src="src/svg-s/youtube_activity.svg" style="margin-top: 4.3px" /></button>
+        <button id="sendBtn"><span class="material-symbols-outlined" style="margin-top: 2.9px;">send</span></button>
+        <button id="addYtVideo"><span class="material-symbols-outlined" style="margin-top: 4px;">youtube_activity</span></button>
         <div id="btn" style="
             display: inline-flex;
             align-items: center; 
             font-size: 0px; 
-            background: linear-gradient(90deg, ${color} 15px, #d4d4d4 45px);
+            --accent-color: ${color};
             -webkit-tap-highlight-color: transparent;
         "><div class="image"><img src="${img}" width="45px" height="45px" class="image" /></div>
             <div class="user" style="display: inline-block; font-size: 26px; height: auto; margin-right: 10px">${name}</div>
-            <button class="small" onclick="location.reload();"><img alt="Wyloguj" src="src/svg-s/logout.svg"/></span>
+            <button class="small" onclick="location.reload();"><span class="material-symbols-outlined" style="margin-top: 1.5px;">logout</span></span>
         </button>
     </div>`
 
@@ -129,7 +129,7 @@ function start() {
         let text = ""    
         var args = ""
         if ("youtube_video_link" in data) { 
-            args += `<iframe width="560" height="315" src="https://www.youtube.com/embed/${data.youtube_video_link.code}{yt-timer-c34}" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen style="margin-left: 8px; border-radius: 0.8rem; margin-top: 4px; border: 8px double black;"></iframe>` 
+            args += `<iframe width="560" height="315" src="https://www.youtube.com/embed/${data.youtube_video_link.code}{yt-timer-c34}" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>` 
             if ("timer" in data.youtube_video_link) args = args.replace("{yt-timer-c34}", `?start=${data.youtube_video_link.timer}`) 
             else args = args.replace("{yt-timer-c34}", "")
         }
