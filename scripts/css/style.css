@@ -1,11 +1,37 @@
+@keyframes show-message {
+    from {
+        margin-left: -50px;
+        opacity: 0;
+    }
+    to {
+        margin-left: 0px;
+        opacity: 1;
+    }
+}
+
 * {
     font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
 }
 
-/* jasny motyw */
+/* jasny motyw + ustawienia */
 body {
     overflow-x: hidden;
     background: white;
+}
+
+#settings {
+    background-color: white;
+    width: 100vw;
+    height: 100vh;
+    box-sizing: border-box;
+    padding: 25px;
+    position: absolute;
+    left: -105vw;
+    top: 0;
+}
+
+#settings.active {
+    left: 0;
 }
 
 #chat {
@@ -48,6 +74,15 @@ textarea, input[type="text"] {
     cursor: pointer;
 }
 
+select {
+    padding: 4px;
+    font-size: 15px;
+    border: none;
+    background: #d4d4d4;
+    border-radius: 0.7rem;
+    cursor: pointer;
+}
+
 textarea#send {
     box-sizing: border-box;
     width: calc(100% - 100px - 8px);
@@ -67,7 +102,6 @@ textarea#send {
 #addYtVideo {
     margin-left: 65px;
 }
-
 
 span[type="link"] {
     border: 3px solid black;
@@ -89,15 +123,16 @@ span[type="link"]:focus-visible {
     overflow: visible;
 }
 
-.boxA.send {
-    opacity: 0.4;
-}
 .boxA {
     border-left: 7px solid black;
     min-height: 45px;
     width: 100%;
     margin-bottom: 5px;
     display: inline-block;
+}
+.boxA.send {
+    animation-name: show-message;
+    animation-duration: 0.4s;
 }
 .user {
     height: 30px;
@@ -143,13 +178,19 @@ iframe[title="YouTube video player"] {
 }
 
 /* ciemny motyw */
+.dark #settings {
+    background: rgb(29, 29, 29);
+    color: white;
+}
+
 body.dark {
     background: rgb(29, 29, 29);
     color: white;
 }
 
-.dark button, .dark input[type="button"], .dark #btn {
+.dark button, .dark input[type="button"], .dark #btn, .dark select {
     background: #4d4d4d;
+    color: white
 }
 
 .dark div#btn {
