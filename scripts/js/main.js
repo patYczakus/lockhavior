@@ -1,8 +1,16 @@
 import { app } from "./database.js"
 import { getDatabase, ref, set, onValue, child, get } from "https://www.gstatic.com/firebasejs/9.12.1/firebase-database.js"
-import { GoogleAuthProvider, FacebookAuthProvider, signInWithPopup, getAuth } from "https://www.gstatic.com/firebasejs/9.12.1/firebase-auth.js"
+import { GoogleAuthProvider, FacebookAuthProvider, signInWithPopup, getAuth, signInWithEmailAndPassword, createUserWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/9.12.1/firebase-auth.js"
 
+var version = 1
 var img, color, name, uid, theme
+
+function authError(type = "log" || "reg", text = String()) {
+    document.querySelector(`div#${type} span#error`).innerText = `❌ ${text}`
+    setTimeout(() => {
+        document.querySelector(`div#${type} span#error`).innerText = `❌`
+    }, text.length * 35)
+}
 
 function writeUserData(text = String()) {
     const db = getDatabase()
@@ -83,6 +91,45 @@ window.onload = () => {
                 console.error(error)
             });
     })
+    document.querySelector(`div#log button[type=submit]`).addEventListener("click", () => {
+        const auth = getAuth(app);
+        
+        signInWithEmailAndPassword(auth, document.querySelector(`div#log input#email`).value, document.querySelector(`div#log input#password`).value)
+            .then((result) => {
+                const user = result.user;
+                console.log(user)
+
+                img = "src/images/lockhavior_user.png"
+                color = "#3cc358"
+                name = `Lockhavior user (${document.querySelector(`div#log input#email`).value})`
+                uid = user.uid
+                start()
+            }).catch((error) => { 
+                if (error.code == "auth/user-not-found") authError("log", "Nie znaleziono konta, spróbuj inne.")
+                if (error.code == "auth/wrong-password") authError("log", "Złe hasło.")
+                else console.error(error)
+            });
+    })
+    document.querySelector(`div#reg button[type=submit]`).addEventListener("click", () => {
+        if (document.querySelector(`div#reg input#password1`).value != document.querySelector(`div#reg input#password2`).value) return authError("reg", "Różne hasła")
+        if (document.querySelector(`div#reg input#name`).value.length < 3 || document.querySelector(`div#reg input#name`).value.length > 25) return authError("reg", "Niepoprawna nazwa użytkownika - powinna zawierać ilość liter od 3 do 25")
+
+        const auth = getAuth(app);
+        
+        createUserWithEmailAndPassword(auth, document.querySelector(`div#reg input#email`).value, document.querySelector(`div#reg input#password1`).value)
+            .then((result) => {
+                const user = result.user;
+                console.log(user)
+
+                img = "src/images/lockhavior_user.png"
+                color = "#3cc358"
+                name = document.querySelector("div#reg input#name").value
+                uid = user.uid
+                start()
+            }).catch((error) => {     
+                console.error(error)
+            });
+    })
 }
 
 function start() {
@@ -91,14 +138,14 @@ function start() {
         if (snapshot.exists()) {
             console.log("Data avaible!")
             const setting_data = snapshot.val()
+
             name = setting_data.nickname
-
             changeTheme(setting_data.theme)
-
             theme = setting_data.theme
         } else {
             console.log("No data available. Creating it...")
-            set(ref(db, `setting_data/${uid}`), {
+            set(ref(getDatabase(), `setting_data/${uid}`), {
+                version: 1,
                 theme: "light",
                 nickname: name,
             }).then(() => {
@@ -120,15 +167,17 @@ function start() {
                 -webkit-tap-highlight-color: transparent;
             "><div class="image"><img src="${img}" width="45px" height="45px" class="image" /></div>
                 <div class="user" style="display: inline-block; font-size: 26px; height: auto; margin-right: 10px">${name}</div>
-                <button class="small" onclick="location.reload();"><span class="material-symbols-outlined" style="margin-top: 1.5px;">logout</span>
-                <button id="settingIcon" class="small"><span class="material-symbols-outlined" style="margin-top: 1.5px;">settings</span></span>
+                <div class="user-btns">
+                    <button class="small" onclick="location.reload();"><span class="material-symbols-outlined" style="margin-top: 1.5px;">logout</span>
+                    <button id="settingIcon" class="small"><span class="material-symbols-outlined" style="margin-top: 1.5px;">settings</span></span>
+                </div>
             </button>
         </div>
         <div id="settings">
             <button class="small" style="background: transparent; font-size: 45px" role="close">&times;</button>
             <p>
                 <h2>Nazwa użytkownika</h2>
-                <input value="${name}" type="text" id="username">
+                <input value="${name}" type="text" id="username" ${color == "#3cc358" ? "" : "disabled"}> ${color == "#3cc358" ? "" : "Ze względu na to, iż to konto firmy trzeciej, nie możesz zmienić nazwy"}
             </p>
             <p>
                 <h2>Motyw</h2>
@@ -203,7 +252,7 @@ function settingFunc() {
 
     if (document.querySelector("#settings select").value == theme) numbers--
     if (document.querySelector("#settings #username").value == name) numbers--
-    if (document.querySelector("#settings #username").value.length < 3 || document.querySelector("#settings select").value > 25) return
+    if (document.querySelector("#settings #username").value.length < 3 || document.querySelector("#settings select").value.length > 25) return
 
     console.log(numbers)
     if (numbers == 0) {} else {
@@ -217,6 +266,7 @@ function settingFunc() {
         set(ref(db, `setting_data/${uid}`), {
             theme: theme,
             nickname: name,
+            version: 1,
         })
     }
 }

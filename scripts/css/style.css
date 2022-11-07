@@ -17,6 +17,15 @@
 body {
     overflow-x: hidden;
     background: white;
+    cursor: default;
+}
+
+[role="form"] div {
+    box-sizing: border-box;
+    padding: 10px;
+    width: 30%;
+    min-width: 300px;
+    float: left;
 }
 
 #settings {
@@ -50,10 +59,12 @@ button, input[type="button"], #btn {
     cursor: pointer;
     -webkit-tap-highlight-color: rgba(137, 43, 226, 0.3);
     display: inline-block;
+    margin-bottom: 2px;
 }
 
 button.small, input[type="button"].small {
     padding: 3px;
+    margin-bottom: 0px;
 }
 
 div#btn {
@@ -65,13 +76,16 @@ div#btn button {
     height: 37px;
 }
 
-textarea, input[type="text"] {
+textarea, input[type="text"], input[type="password"] {
     margin-right: 5px;
     font-size: 15px;
     border: none;
     background: #d4d4d4;
     border-radius: 0.7rem;
     cursor: pointer;
+    padding: 4px;
+    margin-bottom: 2px;
+    cursor: text;
 }
 
 select {
@@ -87,7 +101,6 @@ textarea#send {
     box-sizing: border-box;
     width: calc(100% - 100px - 8px);
     height: 35px;
-    padding: 4px;
 }
 
 #sendBtn, #addYtVideo {
@@ -115,6 +128,10 @@ span[type="link"]:focus-visible {
     background-color: rgba(137, 43, 226, 0.3);
 }
 
+button:disabled, input:disabled, textarea:disabled, span[type="link"]:disabled {
+    opacity: 0.5;
+    cursor: default;
+}
 
 #send {
     resize: none;
@@ -145,6 +162,7 @@ span[type="link"]:focus-visible {
     font-size: 15px;
     padding-left: 5px;
     font-weight: 550;
+    cursor: text;
 }
 .boxB {
     min-height: 45px;
@@ -177,6 +195,10 @@ iframe[title="YouTube video player"] {
     margin-left: 8px; border-radius: 0.8rem; margin-top: 4px; border: 8px double black;
 }
 
+#error {
+    color: red;
+}
+
 /* ciemny motyw */
 .dark #settings {
     background: rgb(29, 29, 29);
@@ -188,7 +210,7 @@ body.dark {
     color: white;
 }
 
-.dark button, .dark input[type="button"], .dark #btn, .dark select {
+.dark button, .dark input[type="button"], .dark #btn, .dark select, .dark input[type="password"] {
     background: #4d4d4d;
     color: white
 }
@@ -211,4 +233,13 @@ body.dark {
 
 .dark iframe[title="YouTube video player"] {
     border: 8px double white;
+}
+
+/* specjalny motyw */
+.poverfull body {
+    background: url(harry.jpg) no-repeat centercenter fixed;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
 }
