@@ -199,6 +199,21 @@ iframe[title="YouTube video player"] {
     color: red;
 }
 
+div.cinfo {
+    width: 100%;
+    padding: 24px;
+    border: 2px solid black;
+    border-left: 9px solid black;
+    box-sizing: border-box;
+    color: black;
+    border-radius: 1rem;
+}
+
+div.cinfo.green {
+    border-color: green;
+    background-color: greenyellow
+}
+
 /* ciemny motyw */
 .dark #settings {
     background: rgb(29, 29, 29);
@@ -233,6 +248,15 @@ body.dark {
 
 .dark iframe[title="YouTube video player"] {
     border: 8px double white;
+}
+
+.dark div.cinfo {
+    color: white;
+}
+
+.dark div.cinfo.green {
+    border-color: greenyellow;
+    background-color: green
 }
 
 /* specjalny motyw */

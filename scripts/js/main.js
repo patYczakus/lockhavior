@@ -1,6 +1,6 @@
 import { app } from "./database.js"
 import { getDatabase, ref, set, onValue, child, get } from "https://www.gstatic.com/firebasejs/9.12.1/firebase-database.js"
-import { GoogleAuthProvider, FacebookAuthProvider, signInWithPopup, getAuth, signInWithEmailAndPassword, createUserWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/9.12.1/firebase-auth.js"
+import { GoogleAuthProvider, FacebookAuthProvider, signInWithPopup, getAuth, signInWithEmailAndPassword, createUserWithEmailAndPassword, sendSignInLinkToEmail } from "https://www.gstatic.com/firebasejs/9.12.1/firebase-auth.js"
 
 var version = 1
 var img, color, name, uid, theme
@@ -9,7 +9,14 @@ function authError(type = "log" || "reg", text = String()) {
     document.querySelector(`div#${type} span#error`).innerText = `❌ ${text}`
     setTimeout(() => {
         document.querySelector(`div#${type} span#error`).innerText = `❌`
-    }, text.length * 35)
+    }, 350 + text.length * 25)
+}
+
+function authAccept() {
+    document.querySelector(`div#reg span#error`).innerHTML = `✅ <span style="color: green">Utworzono! Sprawdź pocztę, aby potwierdzić (może być w spam)!</span>`
+    setTimeout(() => {
+        document.querySelector(`div#reg span#error`).innerText = ``
+    }, 3500)
 }
 
 function writeUserData(text = String()) {
@@ -123,11 +130,13 @@ window.onload = () => {
 
                 img = "src/images/lockhavior_user.png"
                 color = "#3cc358"
-                name = document.querySelector("div#reg input#name").value
+                name = document.querySelector(`div#reg input#name`).value
                 uid = user.uid
                 start()
             }).catch((error) => {     
-                console.error(error)
+                if (error.code == "auth/weak-password") return authError("reg", "Słabe hasło, spróbuj utworzyć silniejsze.")
+                else if (error.code == "auth/email-already-exists") return authError("reg", "Konto jest w użyciu.")
+                else console.error(error)
             });
     })
 }
@@ -260,7 +269,7 @@ function settingFunc() {
 
         theme = document.querySelector("#settings select").value
         name = document.querySelector("#settings #username").value
-        document.querySelector("div.user").innerText = name
+        document.querySelector("div#btn div.user").innerText = name
 
         var db = getDatabase()
         set(ref(db, `setting_data/${uid}`), {
