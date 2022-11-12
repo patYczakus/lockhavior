@@ -259,11 +259,104 @@ body.dark {
     background-color: green
 }
 
-/* specjalny motyw */
-.poverfull body {
-    background: url(harry.jpg) no-repeat centercenter fixed;
+/* motyw promo */
+body.promo {
+    background-image: url(https://www.slma.cc/wp-content/uploads/2017/12/background-promo.jpg);
+    background-repeat: no-repeat;
+    background-attachment: fixed;
     -webkit-background-size: cover;
     -moz-background-size: cover;
     -o-background-size: cover;
     background-size: cover;
+    color: white;
+}
+
+.promo #settings {
+    background: rgba(0, 0, 0, 0.8);
+    color: white;
+}
+
+.promo button, .promo input[type="button"], .promo #btn, .promo select, .promo input[type="password"] {
+    background: #d4d4d4;
+    color: black;
+}
+
+.promo #setting button[role="close"] {
+    color: white;
+}
+
+.promo div#btn {
+    background: linear-gradient(90deg, var(--accent-color) 15px, #d4d4d4 45px);
+}
+.promo div#btn button {
+    border: 2px solid #4d4d4d;
+}
+
+.promo textarea, .promo input[type="text"] {
+    background: #d4d4dd;
+    color: black;
+}
+
+.promo .material-symbols-outlined {
+    color: black;
+}
+
+.promo iframe[title="YouTube video player"] {
+    border: 8px double white;
+}
+
+.promo div.cinfo {
+    color: white;
+}
+
+/* motyw hexagon */
+body.hexagon {
+    background-image: url(https://papers.co/wallpaper/papers.co-vy42-honey-hexagon-digital-abstract-pattern-background-red-29-wallpaper.jpg);
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
+    color: rgb(255, 255, 255);
+}
+
+.hexagon #settings {
+    background: #7c7c7c;
+    color: #d4d4d4;
+}
+
+.hexagon button, .hexagon input[type="button"], .hexagon #btn, .hexagon select, .hexagon input[type="password"] {
+    background: #d4d4dd;
+    color: black
+}
+
+.hexagon div#btn {
+    background: linear-gradient(90deg, var(--accent-color) 15px, #d4d4d479 45px);
+}
+.hexagon div#btn button {
+    border: 2px solid #d4d4d4;
+}
+
+.hexagon textarea, .hexagon input[type="text"] {
+    background: #d4d4d4;
+    color: black;
+}
+
+.hexagon .material-symbols-outlined {
+    color: black;
+}
+
+.hexagon iframe[title="YouTube video player"] {
+    border: 8px double black;
+}
+
+.hexagon .boxA:hover {
+    background: rgba(25, 25, 25, 0.566);
+    padding: 10px 0 7px 0;
+}
+
+.hexagon .boxA {
+    background: rgba(0, 0, 0, 0.566);
+    padding: 10px 0 7px 0;
 }

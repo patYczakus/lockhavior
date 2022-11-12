@@ -3,7 +3,7 @@ import { getDatabase, ref, set, onValue, child, get } from "https://www.gstatic.
 import { GoogleAuthProvider, FacebookAuthProvider, signInWithPopup, getAuth, signInWithEmailAndPassword, createUserWithEmailAndPassword, sendSignInLinkToEmail } from "https://www.gstatic.com/firebasejs/9.12.1/firebase-auth.js"
 
 var version = 1
-var img, color, name, uid, theme
+var img, color, name, uid, theme, userAnswer
 
 function authError(type = "log" || "reg", text = String()) {
     document.querySelector(`div#${type} span#error`).innerText = `❌ ${text}`
@@ -186,13 +186,15 @@ function start() {
             <button class="small" style="background: transparent; font-size: 45px" role="close">&times;</button>
             <p>
                 <h2>Nazwa użytkownika</h2>
-                <input value="${name}" type="text" id="username" ${color == "#3cc358" ? "" : "disabled"}> ${color == "#3cc358" ? "" : "Ze względu na to, iż to konto firmy trzeciej, nie możesz zmienić nazwy"}
+                <input value="${name}" type="text" id="username" ${color == "#3cc358" ? "" : "disabled"}> ${color == "#3cc358" ? "" : "<br />Ze względu na to, iż to konto firmy trzeciej, nie możesz zmienić nazwy."}
             </p>
             <p>
                 <h2>Motyw</h2>
                 <select>
                     <option value="light" ${theme == "light" ? "selected" : ""}>Jasny</option>
                     <option value="dark" ${theme == "dark" ? "selected" : ""}>Ciemny</option>
+                    <option value="promo" ${theme == "promo" ? "selected" : ""}>Motyw "Promo"</option>
+                    <option value="hexagon" ${theme == "hexagon" ? "selected" : ""}>Hexagon</option>
                 </select>
             </p>
             <button role="apply">Wprowadź zmiany</button>
@@ -245,7 +247,12 @@ function start() {
             </div>
             </div>`
             text += "\n\n"
-            document.getElementById("chat").innerHTML += text
+            if (document.getElementById("chat").scrollHeight - document.getElementById("chat").clientHeight == document.getElementById("chat").scrollTop) {
+                document.getElementById("chat").innerHTML += text
+                document.getElementById("chat").scrollTop = document.getElementById("chat").scrollHeight - document.getElementById("chat").clientHeight
+            } else {
+                document.getElementById("chat").innerHTML += text
+            }
 
             setTimeout(() => {
                 document.querySelector("div.send").classList.remove("send")
@@ -266,7 +273,6 @@ function settingFunc() {
     console.log(numbers)
     if (numbers == 0) {} else {
         changeTheme(document.querySelector("#settings select").value)
-
         theme = document.querySelector("#settings select").value
         name = document.querySelector("#settings #username").value
         document.querySelector("div#btn div.user").innerText = name
@@ -285,6 +291,10 @@ function changeTheme(id) {
         if (!document.body.classList.contains("dark")) document.body.classList.value = "dark"
     } else if (id == "light") {
         if (!document.body.classList.contains("light")) document.body.classList.value = "light"
+    } else if (id == "promo") {
+        if (!document.body.classList.contains("promo")) document.body.classList.value = "promo"
+    } else if (id == "hexagon") {
+        if (!document.body.classList.contains("hexagon")) document.body.classList.value = "hexagon"
     } else {
         console.error("\"id\" not specified.")
     }
